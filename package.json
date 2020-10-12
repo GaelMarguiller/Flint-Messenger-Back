@@ -36,7 +36,8 @@
     "build": "tsc --project tsconfig.json",
     "test": "jest",
     "dev-env": "nodemon",
-    "eslint": "eslint src/**/*.ts"
+    "eslint": "eslint src/**/*.ts",
+    "heroku": "git push heroku master"
   },
   "repository": {
     "type": "git",

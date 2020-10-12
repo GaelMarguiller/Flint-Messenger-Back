@@ -26,7 +26,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="040c96ea-6fd7-41c3-932e-07b2f619e9af" name="Default Changelist" comment="Initial project and add refactoring CRUD">
-      <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,6 +136,7 @@
       <workItem from="1602319932276" duration="33575000" />
       <workItem from="1602395512559" duration="12922000" />
       <workItem from="1602483224170" duration="8061000" />
+      <workItem from="1602495454231" duration="1021000" />
     </task>
     <task id="LOCAL-00001" summary="Initial project and add refactoring CRUD">
       <created>1602398992241</created>
@@ -210,10 +212,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1899" height="295" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1602423120882" />
-    <state x="690" y="242" key="RollbackChangesDialog" timestamp="1602492771116">
+    <state x="690" y="242" key="RollbackChangesDialog" timestamp="1602495161929">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="690" y="242" key="RollbackChangesDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1602492771116" />
+    <state x="690" y="242" key="RollbackChangesDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1602495161929" />
     <state x="786" y="453" key="VCS.ChangelistChooser" timestamp="1602399004681">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
