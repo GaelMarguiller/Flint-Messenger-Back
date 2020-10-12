@@ -26,8 +26,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="040c96ea-6fd7-41c3-932e-07b2f619e9af" name="Default Changelist" comment="Initial project and add refactoring CRUD">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +136,7 @@
       <workItem from="1602319932276" duration="33575000" />
       <workItem from="1602395512559" duration="12922000" />
       <workItem from="1602483224170" duration="8061000" />
-      <workItem from="1602495454231" duration="1021000" />
+      <workItem from="1602495454231" duration="2138000" />
     </task>
     <task id="LOCAL-00001" summary="Initial project and add refactoring CRUD">
       <created>1602398992241</created>
