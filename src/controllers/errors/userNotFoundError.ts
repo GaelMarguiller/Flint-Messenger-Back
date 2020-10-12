@@ -1,10 +1,9 @@
 export class UserNotFoundError extends Error {
-    id: number
+    id: string
 
-    constructor(id: number, message: string) {
-        super();
+    constructor(id: string, message: string) {
+        super(message);
 
         this.id = id;
-        this.message = message;
     }
 }

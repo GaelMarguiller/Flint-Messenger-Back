@@ -14,12 +14,20 @@
     "typescript": "^4.0.3"
   },
   "devDependencies": {
+    "@types/express": "^4.17.7",
     "@types/hapi__joi": "^17.1.2",
     "@types/helmet": "0.0.47",
+    "@types/jest": "^26.0.14",
     "@types/mongoose": "^5.7.36",
     "@types/morgan": "^1.9.1",
-    "@types/express": "^4.17.7",
-    "@types/jest": "^26.0.14",
+    "@typescript-eslint/eslint-plugin": "^4.4.0",
+    "@typescript-eslint/parser": "^4.4.0",
+    "eslint": "^7.11.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.21.4",
+    "eslint-plugin-react-hooks": "^4.1.2",
     "jest": "^26.1.0",
     "nodemon": "^2.0.4"
   },
@@ -27,7 +35,8 @@
     "start": "node ./dist/server.js",
     "build": "tsc --project tsconfig.json",
     "test": "jest",
-    "dev-env": "nodemon"
+    "dev-env": "nodemon",
+    "eslint": "eslint src/**/*.ts"
   },
   "repository": {
     "type": "git",
