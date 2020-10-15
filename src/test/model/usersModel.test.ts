@@ -1,4 +1,4 @@
-/*import { User } from '../../models/usersModel';
+/* import { User } from '../../models/usersModel';
 
 describe('User functions', () => {
     test('User', () => {
@@ -16,4 +16,4 @@ describe('User functions', () => {
 
         expect(thomas.lastname).toBe("Dupont");
     });
-});*/
+}); */

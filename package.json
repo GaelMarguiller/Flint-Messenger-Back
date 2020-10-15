@@ -5,12 +5,22 @@
   "main": "dist/server.js",
   "dependencies": {
     "@hapi/joi": "^17.1.1",
+    "@types/connect-mongo": "^3.1.3",
+    "@types/crypto-js": "^4.0.1",
+    "@types/dotenv": "^8.2.0",
+    "@types/express-session": "^1.17.0",
+    "connect-mongo": "^3.2.0",
+    "crypto-js": "^4.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "helmet": "^3.23.3",
     "mongoose": "^5.10.8",
     "morgan": "^1.10.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "ts-jest": "^26.4.1",
+    "ts-node": "^9.0.0",
     "typescript": "^4.0.3"
   },
   "devDependencies": {
@@ -18,8 +28,11 @@
     "@types/hapi__joi": "^17.1.2",
     "@types/helmet": "0.0.47",
     "@types/jest": "^26.0.14",
+    "@types/node": "^14.11.8",
     "@types/mongoose": "^5.7.36",
     "@types/morgan": "^1.9.1",
+    "@types/passport": "^1.0.4",
+    "@types/passport-local": "^1.0.33",
     "@typescript-eslint/eslint-plugin": "^4.4.0",
     "@typescript-eslint/parser": "^4.4.0",
     "eslint": "^7.11.0",
@@ -32,12 +45,26 @@
     "nodemon": "^2.0.4"
   },
   "scripts": {
-    "start": "node ./dist/server.js",
+    "start": "node -r dotenv/config ./dist/config.js -r ts-node/register ./src/server.ts",
+    "start:watch": "nodemon",
     "build": "tsc --project tsconfig.json",
     "test": "jest",
     "dev-env": "nodemon",
     "eslint": "eslint src/**/*.ts",
     "heroku": "git push heroku master"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ],
+    "exec": "npm start",
+    "ext": "ts"
   },
   "repository": {
     "type": "git",

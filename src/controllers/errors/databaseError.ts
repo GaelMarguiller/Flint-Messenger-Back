@@ -1,8 +1,8 @@
-export class DatabaseError extends Error {
-    err: any;
+export default class DatabaseError extends Error {
+  err: any;
 
-    constructor(err: any) {
-        super();
-        this.err = err;
-    }
+  constructor(err: any) {
+    super();
+    this.err = err;
+  }
 }

@@ -1,9 +1,9 @@
-export class UserNotFoundError extends Error {
-    id: string
+export default class UserNotFoundError extends Error {
+  id: string;
 
-    constructor(id: string, message: string) {
-        super(message);
+  constructor(id: string, message: string) {
+    super(message);
 
-        this.id = id;
-    }
+    this.id = id;
+  }
 }
