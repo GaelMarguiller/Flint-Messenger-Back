@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import passport from 'passport';
-import DatabaseError from '../controllers/errors/databaseError';
 import UserNotFoundError from '../controllers/errors/userNotFoundError';
 
 const router = Router();
@@ -13,15 +12,15 @@ router.post('/', (req, res) => {
     }
 
     if (user) {
-      req.logIn(user, (error) => {
+      return req.logIn(user, (error) => {
         if (error) return res.status(500).send();
-        return res.send(user);
+        return res.send(user.getSafeUser());
       });
     }
     return res.status(404).send('User not found');
   });
 
-  authenticationFunction(req, res);
+  return authenticationFunction(req, res);
 });
 
 export default router;

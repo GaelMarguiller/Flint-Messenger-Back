@@ -13,13 +13,8 @@ export function getUser(
   });
 }
 
-export function getListUsers(callback: (users: IUser[]) => void) {
-  User.find({}, (err, users) => {
-    if (err) {
-      throw new DatabaseError(err);
-    }
-    callback(users);
-  });
+export function getListUsers(): Promise<IUser[]> {
+  return User.find({}, '_id firstname lastname').then((res) => res);
 }
 
 export function createUser(

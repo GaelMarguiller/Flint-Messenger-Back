@@ -4,6 +4,7 @@ import connectMongo from 'connect-mongo';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import session from 'express-session';
+import cors from 'cors';
 
 import { configuration, IConfig } from './config';
 import connect from './database';
@@ -21,6 +22,10 @@ export default function createExpressApp(config: IConfig): express.Express {
 
   app.use(morgan('combined'));
   app.use(helmet());
+  app.use(cors({
+    origin: true,
+    credentials: true,
+  }));
   app.use(express.json());
   app.use(session({
     name: SESSION_COOKIE_NAME,

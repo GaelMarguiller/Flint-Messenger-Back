@@ -11,11 +11,10 @@ import authenticationRequired from '../middlewares/authenticationRequired';
 
 const router = Router();
 
-router.get('/', authenticationRequired, (req: Request, res: Response) => {
-  getListUsers((users) => {
-    if (!users) return res.status(404).send('Users not found');
-    return res.send(users);
-  });
+router.get('/', (req: Request, res: Response) => {
+  getListUsers().then((users: IUser[]) => res.send(
+    users.map((user: IUser) => user.getSafeUser()),
+  ));
 });
 
 router.get('/:userId', (req: Request, res: Response) => {

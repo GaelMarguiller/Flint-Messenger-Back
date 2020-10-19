@@ -16,7 +16,6 @@ passport.use(
       return done(new UserNotFoundError(username, 'User not found'));
     });
   }),
-
 );
 
 passport.serializeUser((user: IUser, done) => {
