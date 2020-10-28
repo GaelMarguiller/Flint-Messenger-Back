@@ -7,6 +7,7 @@ import session from 'express-session';
 import cors from 'cors';
 
 import { configuration, IConfig } from './config';
+import { initializeSocket } from './socket';
 import connect from './database';
 import generalRoute from './routes/router';
 import {
@@ -15,6 +16,7 @@ import {
 } from './controllers/authenticationController';
 
 const MongoStore = connectMongo(session);
+const sessionStore = new MongoStore({ mongooseConnection: mongoose.connection });
 
 export default function createExpressApp(config: IConfig): express.Express {
   const { EXPRESS_DEBUG, SESSION_COOKIE_NAME, SESSION_SECRET } = config;
@@ -30,9 +32,7 @@ export default function createExpressApp(config: IConfig): express.Express {
   app.use(session({
     name: SESSION_COOKIE_NAME,
     secret: SESSION_SECRET,
-    store: new MongoStore({
-      mongooseConnection: mongoose.connection,
-    }), // Recup connexion from mongoose
+    store: sessionStore, // Recup connexion from mongoose
     saveUninitialized: false,
     resave: false,
   }));
@@ -57,4 +57,10 @@ const config = configuration();
 const { PORT } = config;
 const app = createExpressApp(config);
 // eslint-disable-next-line no-console
-connect(config).then(() => app.listen(PORT, () => console.log(`Flint messenger listening at ${PORT}`)));
+connect(config).then(
+  () => {
+    const server = app.listen(PORT, () => console.log(`Flint messenger listening at ${PORT}`));
+
+    initializeSocket(config, server, sessionStore);
+  },
+);

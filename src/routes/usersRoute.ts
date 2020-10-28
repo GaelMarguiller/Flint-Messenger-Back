@@ -5,6 +5,7 @@ import {
   getListUsers,
   getUser,
   updateUser,
+  updateConversationSeen,
 } from '../controllers/userController';
 import { IUser } from '../models/usersModel';
 import authenticationRequired from '../middlewares/authenticationRequired';
@@ -16,6 +17,8 @@ router.get('/', (req: Request, res: Response) => {
     users.map((user: IUser) => user.getSafeUser()),
   ));
 });
+
+router.get('/me', authenticationRequired, (req, res) => res.send((req.user as IUser).getSafeUser()));
 
 router.get('/:userId', (req: Request, res: Response) => {
   const id: string = req.params.userId;
@@ -37,6 +40,17 @@ router.post('/', (req : Request, res : Response) => {
   const newUser = createUser(firstname, lastname, email, password);
 
   return res.send(newUser.getSafeUser());
+});
+
+router.patch('/conversation-seen', authenticationRequired, async (req: Request, res: Response) => {
+  const user = req.user as IUser;
+  const { conversationId } = req.body;
+
+  if (!conversationId) { return res.sendStatus(400); }
+
+  const updatedUser = await updateConversationSeen(user, conversationId);
+
+  return res.send(updatedUser.getSafeUser());
 });
 
 router.patch('/:userId', authenticationRequired, (req: Request, res: Response) => {

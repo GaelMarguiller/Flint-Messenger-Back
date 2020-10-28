@@ -22,7 +22,7 @@ export function createUser(
   lastname: string,
   email: string,
   password: string,
-) : IUser {
+): IUser {
   const user = new User({ firstname, lastname, email });
   user.setPassword(password);
   user.save();
@@ -41,7 +41,7 @@ export function updateUser(
     Object.keys(obj).forEach((el) => {
       if (
         allowedFields.includes(el)
-        && (typeof obj[el] === 'boolean' || obj[el])
+                && (typeof obj[el] === 'boolean' || obj[el])
       ) {
         newObj[el] = obj[el];
       }
@@ -62,6 +62,15 @@ export function updateUser(
     }
     callback(res);
   });
+}
+
+export function updateConversationSeen(user: IUser, conversationId: string): Promise<IUser> {
+  // eslint-disable-next-line no-param-reassign
+  user.conversationsSeen = {
+    ...user.conversationsSeen,
+    [conversationId]: new Date(),
+  };
+  return user.save();
 }
 
 export function deleteUser(
