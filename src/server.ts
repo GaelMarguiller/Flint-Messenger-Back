@@ -54,12 +54,11 @@ export default function createExpressApp(config: IConfig): express.Express {
 }
 
 const config = configuration();
-const { PORT } = config;
 const app = createExpressApp(config);
 // eslint-disable-next-line no-console
 connect(config).then(
   () => {
-    const server = app.listen(PORT, () => console.log(`Flint messenger listening at ${PORT}`));
+    const server = app.listen(config.PORT, () => console.log(`Flint messenger listening at ${config.PORT}`));
 
     initializeSocket(config, server, sessionStore);
   },
