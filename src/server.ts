@@ -6,7 +6,7 @@ import helmet from 'helmet';
 import session from 'express-session';
 import cors from 'cors';
 
-import { configuration, IConfig } from './config';
+import { configuration, configurationDev, IConfig } from './config';
 import { initializeSocket } from './socket';
 import connect from './database';
 import generalRoute from './routes/router';
@@ -63,7 +63,7 @@ export default function createExpressApp(config: IConfig): express.Express {
   return app;
 }
 
-const config = configuration();
+const config = process.env.NODE_ENV === 'production' ? configuration() : configurationDev();
 const { PORT } = config;
 const app = createExpressApp(config);
 // eslint-disable-next-line no-console
