@@ -2,7 +2,7 @@
   "name": "rebootjs-back",
   "version": "1.0.0",
   "description": "Backend of the Messenger app for the RebootJS training",
-  "main": "src/server.ts",
+  "main": "dist/server.js",
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "@types/connect-mongo": "^3.1.3",
