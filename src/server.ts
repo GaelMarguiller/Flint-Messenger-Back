@@ -19,7 +19,6 @@ const MongoStore = connectMongo(session);
 const sessionStore = new MongoStore({ mongooseConnection: mongoose.connection });
 
 export default function createExpressApp(config: IConfig): express.Express {
-  const { EXPRESS_DEBUG, SESSION_COOKIE_NAME, SESSION_SECRET } = config;
   const app = express();
 
   app.use(morgan('combined'));
@@ -30,8 +29,8 @@ export default function createExpressApp(config: IConfig): express.Express {
   }));
   app.use(express.json());
   app.use(session({
-    name: SESSION_COOKIE_NAME,
-    secret: SESSION_SECRET,
+    name: config.SESSION_COOKIE_NAME,
+    secret: config.SESSION_SECRET,
     store: sessionStore, // Recup connexion from mongoose
     saveUninitialized: false,
     resave: false,
@@ -42,7 +41,7 @@ export default function createExpressApp(config: IConfig): express.Express {
   app.use(((err, _req, res, _next) => {
     // eslint-disable-next-line no-console
     console.error(err.stack);
-    res.status?.(500).send(!EXPRESS_DEBUG ? 'Oups' : err);
+    res.status?.(500).send(!config.EXPRESS_DEBUG ? 'Oups' : err);
   }) as ErrorRequestHandler);
 
   app.get('/', (req: Request, res: Response) => {
