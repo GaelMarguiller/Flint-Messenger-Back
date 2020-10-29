@@ -63,7 +63,7 @@ export default function createExpressApp(config: IConfig): express.Express {
   return app;
 }
 
-const config = process.env.NODE_ENV === 'production' ? configuration() : configurationDev();
+const config = configurationDev();
 const { PORT } = config;
 const app = createExpressApp(config);
 // eslint-disable-next-line no-console
