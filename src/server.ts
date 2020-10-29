@@ -19,6 +19,7 @@ const MongoStore = connectMongo(session);
 const sessionStore = new MongoStore({ mongooseConnection: mongoose.connection });
 
 export default function createExpressApp(config: IConfig): express.Express {
+  const { EXPRESS_DEBUG, SESSION_COOKIE_NAME, SESSION_SECRET } = config;
   const app = express();
 
   app.use(morgan('combined'));
@@ -28,20 +29,30 @@ export default function createExpressApp(config: IConfig): express.Express {
     credentials: true,
   }));
   app.use(express.json());
-  app.use(session({
-    name: config.SESSION_COOKIE_NAME,
-    secret: config.SESSION_SECRET,
+  const sessionConfig = {
+    name: SESSION_COOKIE_NAME,
+    secret: SESSION_SECRET,
     store: sessionStore, // Recup connexion from mongoose
     saveUninitialized: false,
     resave: false,
-  }));
+    cookie: {},
+  };
+
+  if (process.env.NODE_ENV === 'production') {
+    app.set('trust proxy', 1);
+    sessionConfig.cookie = {
+      secure: true,
+      sameSite: 'none',
+    };
+  }
+  app.use(session(sessionConfig));
   app.use(authenticationInitialize());
   app.use(authenticationSession());
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   app.use(((err, _req, res, _next) => {
     // eslint-disable-next-line no-console
     console.error(err.stack);
-    res.status?.(500).send(!config.EXPRESS_DEBUG ? 'Oups' : err);
+    res.status?.(500).send(!EXPRESS_DEBUG ? 'Oups' : err);
   }) as ErrorRequestHandler);
 
   app.get('/', (req: Request, res: Response) => {
@@ -53,11 +64,12 @@ export default function createExpressApp(config: IConfig): express.Express {
 }
 
 const config = configuration();
+const { PORT } = config;
 const app = createExpressApp(config);
 // eslint-disable-next-line no-console
 connect(config).then(
   () => {
-    const server = app.listen(config.PORT, () => console.log(`Flint messenger listening at ${config.PORT}`));
+    const server = app.listen(PORT, () => console.log(`Flint messenger listening at ${PORT}`));
 
     initializeSocket(config, server, sessionStore);
   },
