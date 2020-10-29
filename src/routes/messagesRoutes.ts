@@ -18,7 +18,7 @@ router.get('/', authenticationRequired, async (req, res) => {
         { targets: connectedUser._id },
       ],
     });
-
+    console.log(messages);
     return res.send(messages);
   } catch (err) {
     throw new DatabaseError(err);
