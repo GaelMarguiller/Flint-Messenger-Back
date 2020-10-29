@@ -54,6 +54,7 @@
   },
   "scripts": {
     "start": "node ./dist/server.js",
+    "postinstall": "tsc --project tsconfig.json",
     "start-dev": "node -r ts-node/register ./src/server.ts",
     "start:watch": "nodemon -r dotenv/config ./src/config.ts",
     "build": "tsc --project tsconfig.json",

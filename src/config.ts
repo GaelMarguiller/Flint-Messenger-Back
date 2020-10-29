@@ -1,5 +1,7 @@
 import dotenv, { config } from 'dotenv';
 
+config();
+
 export interface IConfig {
   PORT: number;
   SESSION_COOKIE_NAME: string;
