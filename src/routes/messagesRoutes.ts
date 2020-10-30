@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { DatabaseError } from '../controllers/errors/databaseError';
-import { authenticationRequired } from '../middlewares/authenticationRequired';
+import DatabaseError from '../controllers/errors/databaseError';
+import authenticationRequired from '../middlewares/authenticationRequired';
 import { Message } from '../models/messagesModel';
 import { IUser, User } from '../models/usersModel';
 import { io } from '../socket';
