@@ -11,13 +11,13 @@ export const activesSockets = new Set<Socket>();
 
 export let io: socketIO.Server;
 export function initializeSocket(config: IConfig, httpServer: HTTPServer, sessionStore: Store) {
-  const { SESSION_COOKIE_NAME, SESSION_SECRET } = config;
-  const io = socketIO(httpServer);
+  const { SESSION_COOKIE_NAME, SESSION_SECRET } = process.env.NODE_ENV === 'production' ? process.env : config;
+  io = socketIO(httpServer);
 
   io.use(
     passportSocketIo.authorize({
       passport,
-      key: SESSION_COOKIE_NAME, // the name of the cookie where express/connect stores its session_i
+      key: SESSION_COOKIE_NAME, // the name of the cookie where express/connect stores its session_id
       secret: SESSION_SECRET, // the session_secret to parse the cookie
       cookieParser: cookieParser as any, // the same middleware you registrer in express
       store: sessionStore, // we NEED to use a sessionstore. no memorystore please

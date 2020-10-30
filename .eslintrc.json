@@ -32,6 +32,7 @@
     "ignorePatterns": ["dist/**.*"],
     "rules": {
         "linebreak-style": [2, "windows"],
-        "import/extensions": [0, {"ts":  "never", "js": "never"}]
+        "import/extensions": [0, {"ts":  "never", "js": "never"}],
+        "no-underscore-dangle": ["error", { "allowFunctionParams": true }]
     }
 }
