@@ -4,7 +4,7 @@ import { IConfig } from './config';
 export default async function connect(config: IConfig): Promise<void> {
   const {
     MONGO_HOST, MONGO_USER, MONGO_PASS, MONGO_DATABASE, MONGO_DEBUG,
-  } = config;
+  } = process.env.NODE_ENV === 'production' ? process.env : config;
   const mongoIdentity = `${MONGO_USER}:${MONGO_PASS}`;
   const mongoServer = `${MONGO_HOST}`;
   const mongoUri = `mongodb+srv://${mongoIdentity}@${mongoServer}/${MONGO_DATABASE}`;

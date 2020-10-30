@@ -16,14 +16,6 @@ export interface IConfig {
 
 export function configuration(): IConfig {
   const result: any = dotenv.config();
-  for (const key in result) {
-    if (key in process.env) result[key] = process.env[key];
-  }
-  return result;
-}
-
-export function configurationDev(): IConfig {
-  const result: any = dotenv.config();
   Object.keys(result).forEach((key) => {
     if (key in process.env) result[key] = process.env[key];
   });
