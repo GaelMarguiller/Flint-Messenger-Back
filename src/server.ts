@@ -6,7 +6,7 @@ import helmet from 'helmet';
 import session from 'express-session';
 import cors from 'cors';
 
-import { configuration, configurationDev, IConfig } from './config';
+import { configurationDev, IConfig } from './config';
 import { initializeSocket } from './socket';
 import connect from './database';
 import generalRoute from './routes/router';
@@ -18,8 +18,7 @@ import {
 const MongoStore = connectMongo(session);
 const sessionStore = new MongoStore({ mongooseConnection: mongoose.connection });
 
-export default function createExpressApp(config: IConfig): express.Express {
-  const { EXPRESS_DEBUG, SESSION_COOKIE_NAME, SESSION_SECRET } = config;
+export default function createExpressApp(): express.Express {
   const app = express();
 
   app.use(morgan('combined'));
@@ -30,8 +29,8 @@ export default function createExpressApp(config: IConfig): express.Express {
   }));
   app.use(express.json());
   const sessionConfig = {
-    name: SESSION_COOKIE_NAME,
-    secret: SESSION_SECRET,
+    name: process.env.SESSION_COOKIE_NAME,
+    secret: process.env.SESSION_SECRET,
     store: sessionStore, // Recup connexion from mongoose
     saveUninitialized: false,
     resave: false,
@@ -45,6 +44,8 @@ export default function createExpressApp(config: IConfig): express.Express {
       sameSite: 'none',
     };
   }
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   app.use(session(sessionConfig));
   app.use(authenticationInitialize());
   app.use(authenticationSession());
@@ -52,7 +53,7 @@ export default function createExpressApp(config: IConfig): express.Express {
   app.use(((err, _req, res, _next) => {
     // eslint-disable-next-line no-console
     console.error(err.stack);
-    res.status?.(500).send(!EXPRESS_DEBUG ? 'Oups' : err);
+    res.status?.(500).send(!process.env.EXPRESS_DEBUG ? 'Oups' : err);
   }) as ErrorRequestHandler);
 
   app.get('/', (req: Request, res: Response) => {
@@ -64,12 +65,12 @@ export default function createExpressApp(config: IConfig): express.Express {
 }
 
 const config = configurationDev();
-const { PORT } = config;
-const app = createExpressApp(config);
+// const { PORT } = config;
+const app = createExpressApp();
 // eslint-disable-next-line no-console
 connect(config).then(
   () => {
-    const server = app.listen(PORT, () => console.log(`Flint messenger listening at ${PORT}`));
+    const server = app.listen(process.env.PORT, () => console.log(`Flint messenger listening at ${process.env.PORT}`));
 
     initializeSocket(config, server, sessionStore);
   },
